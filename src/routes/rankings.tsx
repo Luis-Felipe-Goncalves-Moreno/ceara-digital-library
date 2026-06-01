@@ -113,7 +113,7 @@ function RankingsPage() {
               <div className="text-sm font-semibold">Top alunos leitores</div>
               <div className="text-xs text-muted-foreground">Classificação por número de empréstimos</div>
             </div>
-            <Badge tone="info">{students.length} alunos</Badge>
+            <span className="ml-auto"><Badge tone="info">{students.length} alunos</Badge></span>
           </div>
           <div className="max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm">
@@ -149,7 +149,7 @@ function RankingsPage() {
               <div className="text-sm font-semibold">Top turmas</div>
               <div className="text-xs text-muted-foreground">Total de empréstimos por turma</div>
             </div>
-            <Badge tone="accent">{turmas.length} turmas</Badge>
+            <span className="ml-auto"><Badge tone="accent">{turmas.length} turmas</Badge></span>
           </div>
           <div className="max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm">
