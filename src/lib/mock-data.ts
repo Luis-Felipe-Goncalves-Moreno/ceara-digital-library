@@ -1,4 +1,4 @@
-import type { Autor, Editora, Livro, Usuario, Funcionario, Emprestimo } from "./types";
+import type { Autor, Editora, Livro, Usuario, Funcionario, Emprestimo, Turma } from "./types";
 
 export const autores: Autor[] = [
   { idAutor: 1, nome: "Rachel de Queiroz", data_nascimento: "1910-11-17", cpf: "111.222.333-44", nacionalidade: "Brasileira", email: "rachel@academia.br" },
@@ -27,13 +27,91 @@ export const livros: Livro[] = [
   { idLivros: 8, nome: "Homo Deus", data_lancamento: "2016-01-01", categoria: "História", isbn: "978-85-01-00008-8", quantidade_total: 11, quantidade_disponivel: 8, editora_ideditora: 4, autores: [autores[5]], editora: editoras[3] },
 ];
 
+export const TURMAS: Turma[] = [
+  "1 Informática", "2 Informática", "3 Informática",
+  "1 Administração", "3 Administração",
+  "2 Finanças",
+  "1 Meio-Ambiente", "2 Meio-Ambiente", "3 Meio-Ambiente",
+  "1 Edificações", "3 Edificações",
+  "2 Redes",
+];
+
+// Realistic student roster across the 12 classes (4-6 students per class)
+const studentSeeds: Array<[string, Turma]> = [
+  ["Ana Beatriz Lima", "1 Informática"],
+  ["Lucas Fernandes Rocha", "1 Informática"],
+  ["Marina Cordeiro", "1 Informática"],
+  ["Pedro Henrique Sousa", "1 Informática"],
+  ["Camila Vieira", "2 Informática"],
+  ["Rafael Tavares", "2 Informática"],
+  ["Beatriz Nogueira", "2 Informática"],
+  ["Thiago Bezerra", "2 Informática"],
+  ["Mariana Albuquerque", "3 Informática"],
+  ["João Vitor Mendes", "3 Informática"],
+  ["Larissa Pontes", "3 Informática"],
+  ["Gustavo Almeida", "3 Informática"],
+  ["Isabela Cunha", "3 Informática"],
+  ["Felipe Carvalho", "1 Administração"],
+  ["Júlia Moreira", "1 Administração"],
+  ["Rodrigo Pinheiro", "1 Administração"],
+  ["Amanda Sales", "1 Administração"],
+  ["Vinícius Braga", "3 Administração"],
+  ["Letícia Farias", "3 Administração"],
+  ["Bruno Cavalcante", "3 Administração"],
+  ["Patrícia Holanda", "3 Administração"],
+  ["Eduardo Maia", "2 Finanças"],
+  ["Sofia Ribeiro", "2 Finanças"],
+  ["Henrique Castro", "2 Finanças"],
+  ["Yasmin Coelho", "2 Finanças"],
+  ["Diego Lacerda", "1 Meio-Ambiente"],
+  ["Helena Aragão", "1 Meio-Ambiente"],
+  ["Matheus Diniz", "1 Meio-Ambiente"],
+  ["Clara Bandeira", "1 Meio-Ambiente"],
+  ["Otávio Lemos", "2 Meio-Ambiente"],
+  ["Natália Vasconcelos", "2 Meio-Ambiente"],
+  ["Renan Magalhães", "2 Meio-Ambiente"],
+  ["Bianca Tomé", "2 Meio-Ambiente"],
+  ["Igor Moura", "3 Meio-Ambiente"],
+  ["Carolina Pessoa", "3 Meio-Ambiente"],
+  ["André Saraiva", "3 Meio-Ambiente"],
+  ["Sabrina Quintela", "3 Meio-Ambiente"],
+  ["Murilo Teixeira", "1 Edificações"],
+  ["Tatiana Brito", "1 Edificações"],
+  ["Caio Lobo", "1 Edificações"],
+  ["Daniela Furtado", "1 Edificações"],
+  ["Leandro Pimenta", "3 Edificações"],
+  ["Aline Bastos", "3 Edificações"],
+  ["Marcos Vinícius Paiva", "3 Edificações"],
+  ["Priscila Macedo", "3 Edificações"],
+  ["Arthur Sampaio", "2 Redes"],
+  ["Júnior Holanda", "2 Redes"],
+  ["Vanessa Coutinho", "2 Redes"],
+  ["Erick Damasceno", "2 Redes"],
+];
+
+const cpf = (n: number) => {
+  const s = String(n).padStart(11, "0");
+  return `${s.slice(0, 3)}.${s.slice(3, 6)}.${s.slice(6, 9)}-${s.slice(9)}`;
+};
+const slugEmail = (nome: string) =>
+  nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z ]/g, "").trim().split(/\s+/).slice(0, 2).join(".");
+
 export const usuarios: Usuario[] = [
-  { idusuarios: 1, nome: "Ana Beatriz Lima", data_nascimento: "2003-04-12", cpf: "111.111.111-11", contato: "(85) 99111-0001", email: "ana.lima@ifce.edu.br", idade: 21, endereco: "Rua Pedro Pereira, 100 — Fortaleza/CE", tipo: "estudante" },
-  { idusuarios: 2, nome: "Carlos Eduardo Sousa", data_nascimento: "1985-08-22", cpf: "222.222.222-22", contato: "(85) 99111-0002", email: "carlos.sousa@ifce.edu.br", idade: 39, endereco: "Av. Beira-Mar, 2200 — Fortaleza/CE", tipo: "professor" },
-  { idusuarios: 3, nome: "Mariana Albuquerque", data_nascimento: "2002-01-30", cpf: "333.333.333-33", contato: "(85) 99111-0003", email: "mariana.a@ifce.edu.br", idade: 22, endereco: "Rua Major Facundo, 88 — Fortaleza/CE", tipo: "estudante" },
-  { idusuarios: 4, nome: "João Vitor Mendes", data_nascimento: "2001-09-09", cpf: "444.444.444-44", contato: "(85) 99111-0004", email: "joao.mendes@ifce.edu.br", idade: 23, endereco: "Rua Senador Pompeu, 500 — Fortaleza/CE", tipo: "estudante" },
-  { idusuarios: 5, nome: "Patrícia Holanda", data_nascimento: "1979-11-02", cpf: "555.555.555-55", contato: "(85) 99111-0005", email: "patricia.h@ifce.edu.br", idade: 45, endereco: "Rua dos Tabajaras, 12 — Fortaleza/CE", tipo: "professor" },
-  { idusuarios: 6, nome: "Lucas Fernandes", data_nascimento: "2004-06-18", cpf: "666.666.666-66", contato: "(85) 99111-0006", email: "lucas.f@ifce.edu.br", idade: 20, endereco: "Rua Padre Mororó, 33 — Fortaleza/CE", tipo: "estudante" },
+  ...studentSeeds.map<Usuario>(([nome, turma], i) => ({
+    idusuarios: i + 1,
+    nome,
+    data_nascimento: `200${3 + (i % 5)}-0${1 + (i % 9)}-1${i % 9}`,
+    cpf: cpf(11111111111 + i * 1234567),
+    contato: `(85) 99${String(100 + i).padStart(3, "0")}-${String(1000 + i).padStart(4, "0")}`,
+    email: `${slugEmail(nome)}@ifce.edu.br`,
+    idade: 15 + (i % 5),
+    endereco: "Fortaleza/CE",
+    tipo: "estudante",
+    turma,
+  })),
+  // Professores
+  { idusuarios: 101, nome: "Carlos Eduardo Sousa", data_nascimento: "1985-08-22", cpf: "222.222.222-22", contato: "(85) 99111-0102", email: "carlos.sousa@ifce.edu.br", idade: 39, endereco: "Fortaleza/CE", tipo: "professor" },
+  { idusuarios: 102, nome: "Renata Cavalcante Albuquerque", data_nascimento: "1979-11-02", cpf: "555.555.555-55", contato: "(85) 99111-0105", email: "renata.albuquerque@ifce.edu.br", idade: 45, endereco: "Fortaleza/CE", tipo: "professor" },
 ];
 
 export const funcionarios: Funcionario[] = [
@@ -47,21 +125,39 @@ const d = (offsetDays: number) => {
   const x = new Date(today); x.setDate(x.getDate() + offsetDays); return x.toISOString().slice(0, 10);
 };
 
-export const emprestimos: Emprestimo[] = [
-  { id: "E-0001", usuarios_idusuarios: 1, Livros_idLivros: 1, emprestimos: 1, data_emprestimo: d(-5), data_estimada: d(9), status: "em_dia", usuario: usuarios[0], livro: livros[0] },
-  { id: "E-0002", usuarios_idusuarios: 2, Livros_idLivros: 6, emprestimos: 1, data_emprestimo: d(-20), data_estimada: d(-6), status: "atrasado", usuario: usuarios[1], livro: livros[5] },
-  { id: "E-0003", usuarios_idusuarios: 3, Livros_idLivros: 4, emprestimos: 1, data_emprestimo: d(-2), data_estimada: d(12), status: "em_dia", usuario: usuarios[2], livro: livros[3] },
-  { id: "E-0004", usuarios_idusuarios: 4, Livros_idLivros: 5, emprestimos: 1, data_emprestimo: d(-30), data_estimada: d(-16), data_devolucao: d(-15), status: "devolvido", usuario: usuarios[3], livro: livros[4] },
-  { id: "E-0005", usuarios_idusuarios: 5, Livros_idLivros: 8, emprestimos: 1, data_emprestimo: d(-10), data_estimada: d(4), status: "em_dia", usuario: usuarios[4], livro: livros[7] },
-  { id: "E-0006", usuarios_idusuarios: 6, Livros_idLivros: 2, emprestimos: 1, data_emprestimo: d(-25), data_estimada: d(-11), status: "atrasado", usuario: usuarios[5], livro: livros[1] },
-  { id: "E-0007", usuarios_idusuarios: 1, Livros_idLivros: 7, emprestimos: 2, data_emprestimo: d(-45), data_estimada: d(-31), data_devolucao: d(-30), status: "devolvido", usuario: usuarios[0], livro: livros[6] },
-  { id: "E-0008", usuarios_idusuarios: 3, Livros_idLivros: 6, emprestimos: 2, data_emprestimo: d(-1), data_estimada: d(13), status: "em_dia", usuario: usuarios[2], livro: livros[5] },
-];
+// Deterministic pseudo-random for reproducible mock
+function seeded(n: number) { return (Math.sin(n) * 10000) % 1; }
+
+// Generate empréstimos so each student has a varying count (1..14)
+const generated: Emprestimo[] = [];
+let empSeq = 1;
+usuarios.filter((u) => u.tipo === "estudante").forEach((u, idx) => {
+  const count = 1 + Math.floor(Math.abs(seeded(idx + 1)) * 14); // 1..14
+  for (let k = 0; k < count; k++) {
+    const livro = livros[(idx + k) % livros.length];
+    const offset = -(3 + ((idx * 7 + k * 11) % 60));
+    const status = k === 0 && idx % 9 === 0 ? "atrasado" : k % 3 === 2 ? "devolvido" : "em_dia";
+    generated.push({
+      id: `E-${String(empSeq++).padStart(4, "0")}`,
+      usuarios_idusuarios: u.idusuarios,
+      Livros_idLivros: livro.idLivros,
+      emprestimos: k + 1,
+      data_emprestimo: d(offset),
+      data_estimada: d(offset + 14),
+      data_devolucao: status === "devolvido" ? d(offset + 10) : undefined,
+      status,
+      usuario: u,
+      livro,
+    });
+  }
+});
+
+export const emprestimos: Emprestimo[] = generated;
 
 export const atividadeRecente = [
   { id: 1, tipo: "emprestimo", texto: "Mariana Albuquerque retirou Dom Casmurro", quando: "há 12 min" },
   { id: 2, tipo: "devolucao", texto: "João Vitor devolveu A Hora da Estrela", quando: "há 1 h" },
   { id: 3, tipo: "cadastro", texto: "Novo livro cadastrado: Homo Deus", quando: "há 3 h" },
-  { id: 4, tipo: "atraso", texto: "Empréstimo E-0002 entrou em atraso", quando: "ontem" },
-  { id: 5, tipo: "usuario", texto: "Lucas Fernandes atualizou contato", quando: "ontem" },
+  { id: 4, tipo: "atraso", texto: "Empréstimo de Lucas Fernandes entrou em atraso", quando: "ontem" },
+  { id: 5, tipo: "usuario", texto: "Camila Vieira atualizou contato", quando: "ontem" },
 ];
