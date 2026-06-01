@@ -35,6 +35,14 @@ export interface Livro {
   capa_url?: string;
 }
 
+export type Turma =
+  | "1 Informática" | "2 Informática" | "3 Informática"
+  | "1 Administração" | "3 Administração"
+  | "2 Finanças"
+  | "1 Meio-Ambiente" | "2 Meio-Ambiente" | "3 Meio-Ambiente"
+  | "1 Edificações" | "3 Edificações"
+  | "2 Redes";
+
 export interface Usuario {
   idusuarios: number;
   nome: string;
@@ -45,6 +53,7 @@ export interface Usuario {
   idade: number;
   endereco: string;
   tipo: "estudante" | "professor" | "visitante";
+  turma?: Turma;
   avatar_url?: string;
 }
 
