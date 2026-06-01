@@ -3,7 +3,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, BookOpen, Users, Repeat, Search, BarChart3, Settings,
-  ChevronLeft, ChevronRight, Bell, Sun, Moon, LogOut, Library,
+  ChevronLeft, ChevronRight, Bell, Sun, Moon, LogOut, Library, Trophy,
 } from "lucide-react";
 
 const NAV = [
@@ -11,6 +11,7 @@ const NAV = [
   { to: "/livros", label: "Livros", icon: BookOpen },
   { to: "/usuarios", label: "Usuários", icon: Users },
   { to: "/emprestimos", label: "Empréstimos", icon: Repeat },
+  { to: "/rankings", label: "Rankings", icon: Trophy },
   { to: "/pesquisa", label: "Pesquisa", icon: Search },
   { to: "/relatorios", label: "Relatórios", icon: BarChart3 },
   { to: "/configuracoes", label: "Configurações", icon: Settings },
@@ -18,8 +19,8 @@ const NAV = [
 
 const labelMap: Record<string, string> = {
   dashboard: "Dashboard", livros: "Livros", usuarios: "Usuários",
-  emprestimos: "Empréstimos", pesquisa: "Pesquisa", relatorios: "Relatórios",
-  configuracoes: "Configurações",
+  emprestimos: "Empréstimos", rankings: "Rankings", pesquisa: "Pesquisa",
+  relatorios: "Relatórios", configuracoes: "Configurações",
 };
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
