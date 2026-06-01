@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsuariosRouteImport } from './routes/usuarios'
 import { Route as RelatoriosRouteImport } from './routes/relatorios'
+import { Route as RankingsRouteImport } from './routes/rankings'
 import { Route as PesquisaRouteImport } from './routes/pesquisa'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LivrosRouteImport } from './routes/livros'
@@ -27,6 +28,11 @@ const UsuariosRoute = UsuariosRouteImport.update({
 const RelatoriosRoute = RelatoriosRouteImport.update({
   id: '/relatorios',
   path: '/relatorios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RankingsRoute = RankingsRouteImport.update({
+  id: '/rankings',
+  path: '/rankings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PesquisaRoute = PesquisaRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/livros': typeof LivrosRoute
   '/login': typeof LoginRoute
   '/pesquisa': typeof PesquisaRoute
+  '/rankings': typeof RankingsRoute
   '/relatorios': typeof RelatoriosRoute
   '/usuarios': typeof UsuariosRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/livros': typeof LivrosRoute
   '/login': typeof LoginRoute
   '/pesquisa': typeof PesquisaRoute
+  '/rankings': typeof RankingsRoute
   '/relatorios': typeof RelatoriosRoute
   '/usuarios': typeof UsuariosRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/livros': typeof LivrosRoute
   '/login': typeof LoginRoute
   '/pesquisa': typeof PesquisaRoute
+  '/rankings': typeof RankingsRoute
   '/relatorios': typeof RelatoriosRoute
   '/usuarios': typeof UsuariosRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/livros'
     | '/login'
     | '/pesquisa'
+    | '/rankings'
     | '/relatorios'
     | '/usuarios'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/livros'
     | '/login'
     | '/pesquisa'
+    | '/rankings'
     | '/relatorios'
     | '/usuarios'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/livros'
     | '/login'
     | '/pesquisa'
+    | '/rankings'
     | '/relatorios'
     | '/usuarios'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   LivrosRoute: typeof LivrosRoute
   LoginRoute: typeof LoginRoute
   PesquisaRoute: typeof PesquisaRoute
+  RankingsRoute: typeof RankingsRoute
   RelatoriosRoute: typeof RelatoriosRoute
   UsuariosRoute: typeof UsuariosRoute
 }
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/relatorios'
       fullPath: '/relatorios'
       preLoaderRoute: typeof RelatoriosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rankings': {
+      id: '/rankings'
+      path: '/rankings'
+      fullPath: '/rankings'
+      preLoaderRoute: typeof RankingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pesquisa': {
@@ -223,9 +243,20 @@ const rootRouteChildren: RootRouteChildren = {
   LivrosRoute: LivrosRoute,
   LoginRoute: LoginRoute,
   PesquisaRoute: PesquisaRoute,
+  RankingsRoute: RankingsRoute,
   RelatoriosRoute: RelatoriosRoute,
   UsuariosRoute: UsuariosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
