@@ -53,7 +53,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }}
                 className="flex flex-col leading-tight"
               >
-                <span className="font-display font-semibold tracking-tight text-[15px]">Bibliotech</span>
+                <span className="font-display font-semibold tracking-tight text-[15px]">Bibliotech <span className="text-[10px] font-medium text-primary align-top">v2.0</span></span>
                 <span className="text-[11px] text-muted-foreground">Sistema acadêmico</span>
               </motion.div>
             )}
