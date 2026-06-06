@@ -10,7 +10,7 @@ import type { Usuario } from "@/lib/types";
 export const Route = createFileRoute("/usuarios")({
   head: () => ({
     meta: [
-      { title: "Usuários — Biblioteca Ceará" },
+      { title: "Usuários — Bibliotech" },
       { name: "description", content: "Perfis de estudantes, professores e funcionários." },
     ],
   }),

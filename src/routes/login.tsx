@@ -6,7 +6,7 @@ import { useState } from "react";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Entrar — Biblioteca Ceará" },
+      { title: "Entrar — Bibliotech" },
       { name: "description", content: "Acesso institucional ao sistema de biblioteca." },
     ],
   }),
@@ -61,7 +61,7 @@ function LoginPage() {
             <Library className="w-5 h-5" />
           </div>
           <div>
-            <div className="font-display font-semibold text-lg leading-tight">Biblioteca Ceará</div>
+            <div className="font-display font-semibold text-lg leading-tight">Bibliotech</div>
             <div className="text-xs text-white/80">Sistema acadêmico de gestão</div>
           </div>
         </div>
@@ -71,7 +71,7 @@ function LoginPage() {
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="font-display text-4xl xl:text-5xl font-semibold tracking-tight"
           >
-            Conhecimento que move o<br /> Ceará.
+            Conhecimento que transforma<br /> vidas.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -90,7 +90,7 @@ function LoginPage() {
           </motion.div>
         </div>
 
-        <div className="relative text-xs text-white/70">© {new Date().getFullYear()} Biblioteca Ceará • Plataforma acadêmica</div>
+        <div className="relative text-xs text-white/70">© {new Date().getFullYear()} Bibliotech • Plataforma acadêmica</div>
       </div>
 
       {/* Right — form */}
@@ -105,7 +105,7 @@ function LoginPage() {
               <Library className="w-5 h-5" />
             </div>
             <div>
-              <div className="font-display font-semibold">Biblioteca Ceará</div>
+              <div className="font-display font-semibold">Bibliotech</div>
               <div className="text-xs text-muted-foreground">Sistema acadêmico</div>
             </div>
           </div>

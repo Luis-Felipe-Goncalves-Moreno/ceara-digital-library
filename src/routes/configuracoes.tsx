@@ -7,7 +7,7 @@ import { Card, PageHeader, Button, Badge } from "@/components/ui-kit";
 export const Route = createFileRoute("/configuracoes")({
   head: () => ({
     meta: [
-      { title: "Configurações — Biblioteca Ceará" },
+      { title: "Configurações — Bibliotech" },
       { name: "description", content: "Perfil, preferências, permissões e tema." },
     ],
   }),

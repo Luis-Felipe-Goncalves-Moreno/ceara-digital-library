@@ -10,7 +10,7 @@ import type { Emprestimo } from "@/lib/types";
 export const Route = createFileRoute("/emprestimos")({
   head: () => ({
     meta: [
-      { title: "Empréstimos — Biblioteca Ceará" },
+      { title: "Empréstimos — Bibliotech" },
       { name: "description", content: "Empréstimos, renovações e devoluções." },
     ],
   }),
