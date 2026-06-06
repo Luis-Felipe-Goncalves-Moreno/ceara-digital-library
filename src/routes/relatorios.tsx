@@ -7,7 +7,7 @@ import { Card, PageHeader, Button } from "@/components/ui-kit";
 export const Route = createFileRoute("/relatorios")({
   head: () => ({
     meta: [
-      { title: "Relatórios — Biblioteca Ceará" },
+      { title: "Relatórios — Bibliotech" },
       { name: "description", content: "Indicadores analíticos e exportações." },
     ],
   }),

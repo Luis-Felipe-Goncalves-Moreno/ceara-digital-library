@@ -16,7 +16,7 @@ import type { Emprestimo } from "@/lib/types";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — Biblioteca Ceará" },
+      { title: "Dashboard — Bibliotech" },
       { name: "description", content: "Visão executiva do acervo, empréstimos e usuários." },
     ],
   }),

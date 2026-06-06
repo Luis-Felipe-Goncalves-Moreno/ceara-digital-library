@@ -12,7 +12,7 @@ import type { Livro } from "@/lib/types";
 export const Route = createFileRoute("/livros")({
   head: () => ({
     meta: [
-      { title: "Livros — Biblioteca Ceará" },
+      { title: "Livros — Bibliotech" },
       { name: "description", content: "Catálogo, cadastro e edição de livros do acervo." },
     ],
   }),

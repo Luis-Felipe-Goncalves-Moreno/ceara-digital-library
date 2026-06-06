@@ -12,7 +12,7 @@ import type { Emprestimo, Usuario, Turma } from "@/lib/types";
 export const Route = createFileRoute("/rankings")({
   head: () => ({
     meta: [
-      { title: "Rankings — Biblioteca Ceará" },
+      { title: "Rankings — Bibliotech" },
       { name: "description", content: "Rank de alunos e turmas com mais empréstimos, exportável em PDF." },
     ],
   }),
@@ -206,7 +206,7 @@ function header(doc: jsPDF, title: string, subtitle: string) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Biblioteca Ceará — Sistema Acadêmico", 14, 13);
+  doc.text("Bibliotech — Sistema Acadêmico", 14, 13);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.text(subtitle, 14, 21);
@@ -231,7 +231,7 @@ function footer(doc: jsPDF) {
     doc.line(14, h - 14, w - 14, h - 14);
     doc.setFontSize(8);
     doc.setTextColor(140);
-    doc.text("Biblioteca Ceará • Documento gerado automaticamente", 14, h - 8);
+    doc.text("Bibliotech • Documento gerado automaticamente", 14, h - 8);
     doc.text(`Página ${i} de ${pageCount}`, w - 14, h - 8, { align: "right" });
   }
 }
@@ -307,7 +307,7 @@ function drawCertificate(doc: jsPDF, s: StudentRank, pos: number) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
-  doc.text("BIBLIOTECA CEARÁ", w / 2, 22, { align: "center" });
+  doc.text("BIBLIOTECH", w / 2, 22, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.text("Sistema Acadêmico de Gerenciamento", w / 2, 28, { align: "center" });
@@ -352,7 +352,7 @@ function drawCertificate(doc: jsPDF, s: StudentRank, pos: number) {
   const body2 =
     `figurando entre os 10 alunos com maior número de empréstimos no período,`;
   const body3 =
-    `totalizando ${s.total} obras retiradas do acervo da Biblioteca Ceará.`;
+    `totalizando ${s.total} obras retiradas do acervo da Bibliotech.`;
   doc.text(body, w / 2, 138, { align: "center" });
   doc.text(body2, w / 2, 145, { align: "center" });
   doc.text(body3, w / 2, 152, { align: "center" });
