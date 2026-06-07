@@ -48,21 +48,38 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
 
+  const { user, profile, roles, loading } = useSession();
+
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
-  // Close mobile drawer on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  // Lock body scroll when mobile drawer open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    if (!loading && !user) navigate({ to: "/auth", replace: true });
+  }, [loading, user, navigate]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  };
+
   const crumbs = pathname.split("/").filter(Boolean);
   const currentLabel = labelMap[crumbs[crumbs.length - 1]] ?? "Bibliotech";
+  const userName = profile?.nome ?? user?.email ?? "Usuário";
+  const userRole = isStaff(roles) ? (roles.includes("admin") ? "Administrador" : "Bibliotecário") : (roles.includes("professor") ? "Professor" : "Estudante");
+  const userInitials = initials(profile?.nome ?? user?.email);
+
+  if (loading || !user) {
+    return <div className="min-h-screen grid place-items-center text-sm text-muted-foreground">Carregando...</div>;
+  }
+
 
   return (
     <div className="min-h-screen flex bg-background">
