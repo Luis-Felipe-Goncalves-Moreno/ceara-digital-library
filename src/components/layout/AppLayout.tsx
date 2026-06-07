@@ -99,7 +99,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }}
                 className="flex flex-col leading-tight"
               >
-                <span className="font-display font-semibold tracking-tight text-[15px]">Bibliotech <span className="text-[10px] font-medium text-primary align-top">v2.0</span></span>
+                <span className="font-display font-semibold tracking-tight text-[15px]">Bibliotech <span className="text-[10px] font-medium text-primary align-top">v2.1</span></span>
                 <span className="text-[11px] text-muted-foreground">Sistema acadêmico</span>
               </motion.div>
             )}
@@ -167,7 +167,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
                 <div className="flex flex-col leading-tight flex-1">
                   <span className="font-display font-semibold tracking-tight text-[15px]">
-                    Bibliotech <span className="text-[10px] font-medium text-primary align-top">v2.0</span>
+                    Bibliotech <span className="text-[10px] font-medium text-primary align-top">v2.1</span>
                   </span>
                   <span className="text-[11px] text-muted-foreground">Sistema acadêmico</span>
                 </div>
@@ -181,13 +181,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
 
               <div className="px-4 py-3 border-b border-sidebar-border flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full gradient-ocean text-white grid place-items-center text-xs font-semibold shadow-elegant">RC</div>
+                <div className="w-10 h-10 rounded-full gradient-ocean text-white grid place-items-center text-xs font-semibold shadow-elegant">{userInitials}</div>
                 <div className="flex-1 leading-tight">
-                  <div className="text-[13px] font-medium">Renata C.</div>
-                  <div className="text-[11px] text-muted-foreground">Bibliotecária</div>
+                  <div className="text-[13px] font-medium">{userName}</div>
+                  <div className="text-[11px] text-muted-foreground">{userRole}</div>
                 </div>
                 <button
-                  onClick={() => { setMobileOpen(false); navigate({ to: "/login" }); }}
+                  onClick={() => { setMobileOpen(false); handleLogout(); }}
                   className="w-9 h-9 grid place-items-center rounded-xl border border-border hover:bg-destructive/10 hover:text-destructive transition-colors"
                   aria-label="Sair"
                 >
@@ -267,12 +267,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </button>
             <div className="hidden sm:flex items-center gap-3 pl-3 ml-1 border-l border-border">
               <div className="text-right leading-tight">
-                <div className="text-[13px] font-medium">Renata C.</div>
-                <div className="text-[11px] text-muted-foreground">Bibliotecária</div>
+                <div className="text-[13px] font-medium">{userName}</div>
+                <div className="text-[11px] text-muted-foreground">{userRole}</div>
               </div>
-              <div className="w-9 h-9 rounded-full gradient-ocean text-white grid place-items-center text-xs font-semibold shadow-elegant">RC</div>
+              <div className="w-9 h-9 rounded-full gradient-ocean text-white grid place-items-center text-xs font-semibold shadow-elegant">{userInitials}</div>
               <button
-                onClick={() => navigate({ to: "/login" })}
+                onClick={() => handleLogout()}
                 className="w-9 h-9 grid place-items-center rounded-xl border border-border hover:bg-destructive/10 hover:text-destructive transition-colors"
                 aria-label="Sair"
               >
@@ -298,7 +298,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
               <div className="leading-tight min-w-0">
                 <div className="text-[13px] font-semibold truncate">{currentLabel}</div>
-                <div className="text-[10px] text-muted-foreground truncate">Bibliotech v2.0</div>
+                <div className="text-[10px] text-muted-foreground truncate">Bibliotech v2.1</div>
               </div>
             </div>
             <button
