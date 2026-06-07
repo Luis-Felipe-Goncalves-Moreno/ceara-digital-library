@@ -5,6 +5,15 @@ import {
   LayoutDashboard, BookOpen, Users, Repeat, Search, BarChart3, Settings,
   ChevronLeft, ChevronRight, Bell, Sun, Moon, LogOut, Library, Trophy, Menu, X,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useSession, isStaff } from "@/lib/hooks/use-library";
+
+function initials(nome?: string | null) {
+  if (!nome) return "U";
+  const parts = nome.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")).toUpperCase() || "U";
+}
+
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
