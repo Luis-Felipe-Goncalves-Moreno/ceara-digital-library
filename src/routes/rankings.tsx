@@ -199,7 +199,7 @@ function header(doc: jsPDF, title: string, subtitle: string) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Bibliotech v2.0 — Sistema Acadêmico", 14, 13);
+  doc.text("Bibliotech v2.1 — Sistema Acadêmico", 14, 13);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.text(subtitle, 14, 21);
