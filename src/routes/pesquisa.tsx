@@ -28,11 +28,11 @@ function PesquisaPage() {
   const autores = useMemo(() => Array.from(new Set(livros.flatMap((l: any) => l.autores?.map((a: any) => a.nome) ?? []))), [livros]);
 
 
-  const suggestions = q ? livros.filter((l) => l.nome.toLowerCase().includes(q.toLowerCase())).slice(0, 4) : [];
+  const suggestions = q ? livros.filter((l: any) => l.nome.toLowerCase().includes(q.toLowerCase())).slice(0, 4) : [];
 
-  const results = livros.filter((l) => {
+  const results = livros.filter((l: any) => {
     const matchQ = !q || l.nome.toLowerCase().includes(q.toLowerCase());
-    const matchAutor = !autor || l.autores?.some((a) => a.nome === autor);
+    const matchAutor = !autor || l.autores?.some((a: any) => a.nome === autor);
     const matchIsbn = !isbn || l.isbn.includes(isbn);
     const matchCat = !cat || l.categoria === cat;
     const matchDisp =
@@ -70,7 +70,7 @@ function PesquisaPage() {
           </div>
           {suggestions.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2 rounded-xl border border-border bg-card shadow-card overflow-hidden">
-              {suggestions.map((s) => (
+              {suggestions.map((s: any) => (
                 <button key={s.id} onClick={() => setQ(s.nome)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted/60 transition-colors text-sm">
                   <BookOpen className="w-4 h-4 text-muted-foreground" />
                   <span className="font-medium">{s.nome}</span>
@@ -128,7 +128,7 @@ function PesquisaPage() {
         <div>
           <div className="text-xs text-muted-foreground mb-3">{results.length} resultado(s)</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {results.map((l, i) => (
+            {results.map((l: any, i: number) => (
               <motion.div key={l.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                 <Card hover className="p-4 flex gap-4">
                   <div className="w-16 h-20 rounded-lg gradient-ocean text-white grid place-items-center shrink-0 shadow-elegant">
