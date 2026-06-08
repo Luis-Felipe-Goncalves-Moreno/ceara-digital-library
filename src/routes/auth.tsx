@@ -53,14 +53,22 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Cadastro realizado!", { description: "Verifique seu e-mail para confirmar a conta." });
-        setMode("signin");
+        // Auto-confirm está ativo: tenta logar direto
+        const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
+        if (signInErr) {
+          toast.success("Cadastro realizado!", { description: "Faça login para continuar." });
+          setMode("signin");
+        } else {
+          toast.success("Conta criada com sucesso!");
+          navigate({ to: "/dashboard" });
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Bem-vindo de volta!");
         navigate({ to: "/dashboard" });
       }
+
     } catch (err: any) {
       toast.error(err.message ?? "Erro ao autenticar");
     } finally {
