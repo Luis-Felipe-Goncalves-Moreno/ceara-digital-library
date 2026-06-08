@@ -74,7 +74,7 @@ function RankingsPage() {
           const icons = [Crown, Trophy, Medal];
           const Icon = icons[i];
           return (
-            <motion.div key={s.usuario.idusuarios} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
+            <motion.div key={s.usuario.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
               <Card className="p-5 relative overflow-hidden">
                 <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br ${colors[i]} opacity-20 blur-2xl`} />
                 <div className="flex items-center gap-4 relative">
@@ -120,7 +120,7 @@ function RankingsPage() {
               </thead>
               <tbody>
                 {students.map((s, i) => (
-                  <tr key={s.usuario.idusuarios} className={`border-t border-border hover:bg-muted/40 ${i < 10 ? "bg-primary/5" : ""}`}>
+                  <tr key={s.usuario.id} className={`border-t border-border hover:bg-muted/40 ${i < 10 ? "bg-primary/5" : ""}`}>
                     <td className="py-2.5 px-4 font-mono text-xs">
                       {i < 3 ? <span className="text-base">{["🥇","🥈","🥉"][i]}</span> : i + 1}
                     </td>
