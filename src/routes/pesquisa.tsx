@@ -25,7 +25,7 @@ function PesquisaPage() {
   const [cat, setCat] = useState("");
   const [disp, setDisp] = useState<"qualquer" | "disponivel" | "indisponivel">("qualquer");
 
-  useEffect(() => { LibraryAPI.listLivros().then(setLivros); }, []);
+  useEffect(() => { (undefined as any); }, []);
 
   const categorias = useMemo(() => Array.from(new Set(livros.map((l) => l.categoria))), [livros]);
   const autores = useMemo(() => Array.from(new Set(livros.flatMap((l) => l.autores?.map((a) => a.nome) ?? []))), [livros]);
@@ -73,7 +73,7 @@ function PesquisaPage() {
           {suggestions.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2 rounded-xl border border-border bg-card shadow-card overflow-hidden">
               {suggestions.map((s) => (
-                <button key={s.idLivros} onClick={() => setQ(s.nome)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted/60 transition-colors text-sm">
+                <button key={s.id} onClick={() => setQ(s.nome)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted/60 transition-colors text-sm">
                   <BookOpen className="w-4 h-4 text-muted-foreground" />
                   <span className="font-medium">{s.nome}</span>
                   <span className="text-xs text-muted-foreground ml-auto">{s.autores?.[0]?.nome}</span>
@@ -131,7 +131,7 @@ function PesquisaPage() {
           <div className="text-xs text-muted-foreground mb-3">{results.length} resultado(s)</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {results.map((l, i) => (
-              <motion.div key={l.idLivros} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+              <motion.div key={l.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                 <Card hover className="p-4 flex gap-4">
                   <div className="w-16 h-20 rounded-lg gradient-ocean text-white grid place-items-center shrink-0 shadow-elegant">
                     <BookOpen className="w-5 h-5" />
