@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, BookOpen, Filter, X } from "lucide-react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Card, PageHeader, Badge, Button } from "@/components/ui-kit";
-import { LibraryAPI } from "@/lib/api/library.service";
-import type { Livro } from "@/lib/types";
+import { useLivros } from "@/lib/hooks/use-library";
 
 export const Route = createFileRoute("/pesquisa")({
   head: () => ({
@@ -18,23 +17,22 @@ export const Route = createFileRoute("/pesquisa")({
 });
 
 function PesquisaPage() {
-  const [livros, setLivros] = useState<Livro[]>([]);
+  const { data: livros = [] } = useLivros();
   const [q, setQ] = useState("");
   const [autor, setAutor] = useState("");
   const [isbn, setIsbn] = useState("");
   const [cat, setCat] = useState("");
   const [disp, setDisp] = useState<"qualquer" | "disponivel" | "indisponivel">("qualquer");
 
-  useEffect(() => { LibraryAPI.listLivros().then(setLivros); }, []);
+  const categorias = useMemo(() => Array.from(new Set(livros.map((l: any) => l.categoria).filter(Boolean))), [livros]);
+  const autores = useMemo(() => Array.from(new Set(livros.flatMap((l: any) => l.autores?.map((a: any) => a.nome) ?? []))), [livros]);
 
-  const categorias = useMemo(() => Array.from(new Set(livros.map((l) => l.categoria))), [livros]);
-  const autores = useMemo(() => Array.from(new Set(livros.flatMap((l) => l.autores?.map((a) => a.nome) ?? []))), [livros]);
 
-  const suggestions = q ? livros.filter((l) => l.nome.toLowerCase().includes(q.toLowerCase())).slice(0, 4) : [];
+  const suggestions = q ? livros.filter((l: any) => l.nome.toLowerCase().includes(q.toLowerCase())).slice(0, 4) : [];
 
-  const results = livros.filter((l) => {
+  const results = livros.filter((l: any) => {
     const matchQ = !q || l.nome.toLowerCase().includes(q.toLowerCase());
-    const matchAutor = !autor || l.autores?.some((a) => a.nome === autor);
+    const matchAutor = !autor || l.autores?.some((a: any) => a.nome === autor);
     const matchIsbn = !isbn || l.isbn.includes(isbn);
     const matchCat = !cat || l.categoria === cat;
     const matchDisp =
@@ -72,8 +70,8 @@ function PesquisaPage() {
           </div>
           {suggestions.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2 rounded-xl border border-border bg-card shadow-card overflow-hidden">
-              {suggestions.map((s) => (
-                <button key={s.idLivros} onClick={() => setQ(s.nome)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted/60 transition-colors text-sm">
+              {suggestions.map((s: any) => (
+                <button key={s.id} onClick={() => setQ(s.nome)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted/60 transition-colors text-sm">
                   <BookOpen className="w-4 h-4 text-muted-foreground" />
                   <span className="font-medium">{s.nome}</span>
                   <span className="text-xs text-muted-foreground ml-auto">{s.autores?.[0]?.nome}</span>
@@ -95,7 +93,7 @@ function PesquisaPage() {
               <label className="text-xs text-muted-foreground">Autor</label>
               <select value={autor} onChange={(e) => setAutor(e.target.value)} className="mt-1 w-full h-10 px-3 rounded-xl border border-border bg-card text-sm">
                 <option value="">Todos</option>
-                {autores.map((a) => <option key={a} value={a}>{a}</option>)}
+                {autores.map((a: any) => <option key={a} value={a}>{a}</option>)}
               </select>
             </div>
             <div>
@@ -130,8 +128,8 @@ function PesquisaPage() {
         <div>
           <div className="text-xs text-muted-foreground mb-3">{results.length} resultado(s)</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {results.map((l, i) => (
-              <motion.div key={l.idLivros} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+            {results.map((l: any, i: number) => (
+              <motion.div key={l.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                 <Card hover className="p-4 flex gap-4">
                   <div className="w-16 h-20 rounded-lg gradient-ocean text-white grid place-items-center shrink-0 shadow-elegant">
                     <BookOpen className="w-5 h-5" />

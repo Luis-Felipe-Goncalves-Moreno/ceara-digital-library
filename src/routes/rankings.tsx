@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Medal, Award, FileDown, GraduationCap, Users as UsersIcon, Crown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Card, PageHeader, Button, Badge } from "@/components/ui-kit";
-import { LibraryAPI } from "@/lib/api/library.service";
-import type { Emprestimo, Usuario, Turma } from "@/lib/types";
+import { useEmprestimos, useProfiles } from "@/lib/hooks/use-library";
 
 export const Route = createFileRoute("/rankings")({
   head: () => ({
@@ -19,40 +18,34 @@ export const Route = createFileRoute("/rankings")({
   component: () => <AppLayout><RankingsPage /></AppLayout>,
 });
 
-type StudentRank = { usuario: Usuario; total: number; turma: Turma };
-type TurmaRank = { turma: Turma; total: number; alunos: number; media: number };
+type StudentRank = { usuario: { id: string; nome: string }; total: number; turma: string };
+type TurmaRank = { turma: string; total: number; alunos: number; media: number };
 
-function computeRanks(emp: Emprestimo[], users: Usuario[]) {
-  const byUser = new Map<number, number>();
-  emp.forEach((e) => byUser.set(e.usuarios_idusuarios, (byUser.get(e.usuarios_idusuarios) ?? 0) + 1));
+function computeRanks(emp: any[], users: any[]): { students: StudentRank[]; turmas: TurmaRank[] } {
+  const byUser = new Map<string, number>();
+  emp.forEach((e) => byUser.set(e.usuario_id, (byUser.get(e.usuario_id) ?? 0) + 1));
 
   const students: StudentRank[] = users
-    .filter((u) => u.tipo === "estudante" && u.turma)
-    .map((u) => ({ usuario: u, total: byUser.get(u.idusuarios) ?? 0, turma: u.turma as Turma }))
+    .filter((u) => u.turma)
+    .map((u) => ({ usuario: { id: u.id, nome: u.nome }, total: byUser.get(u.id) ?? 0, turma: u.turma as string }))
     .sort((a, b) => b.total - a.total);
 
-  const turmaMap = new Map<Turma, { total: number; alunos: number }>();
+  const turmaMap = new Map<string, { total: number; alunos: number }>();
   students.forEach((s) => {
     const cur = turmaMap.get(s.turma) ?? { total: 0, alunos: 0 };
     turmaMap.set(s.turma, { total: cur.total + s.total, alunos: cur.alunos + 1 });
   });
 
   const turmas: TurmaRank[] = Array.from(turmaMap.entries())
-    .map(([turma, v]) => ({ turma, total: v.total, alunos: v.alunos, media: v.total / v.alunos }))
+    .map(([turma, v]) => ({ turma, total: v.total, alunos: v.alunos, media: v.total / Math.max(v.alunos, 1) }))
     .sort((a, b) => b.total - a.total);
 
   return { students, turmas };
 }
 
 function RankingsPage() {
-  const [emp, setEmp] = useState<Emprestimo[]>([]);
-  const [users, setUsers] = useState<Usuario[]>([]);
-
-  useEffect(() => {
-    Promise.all([LibraryAPI.listEmprestimos(), LibraryAPI.listUsuarios()]).then(([e, u]) => {
-      setEmp(e); setUsers(u);
-    });
-  }, []);
+  const { data: emp = [] } = useEmprestimos();
+  const { data: users = [] } = useProfiles();
 
   const { students, turmas } = useMemo(() => computeRanks(emp, users), [emp, users]);
   const top10 = students.slice(0, 10);
@@ -81,7 +74,7 @@ function RankingsPage() {
           const icons = [Crown, Trophy, Medal];
           const Icon = icons[i];
           return (
-            <motion.div key={s.usuario.idusuarios} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
+            <motion.div key={s.usuario.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
               <Card className="p-5 relative overflow-hidden">
                 <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br ${colors[i]} opacity-20 blur-2xl`} />
                 <div className="flex items-center gap-4 relative">
@@ -127,7 +120,7 @@ function RankingsPage() {
               </thead>
               <tbody>
                 {students.map((s, i) => (
-                  <tr key={s.usuario.idusuarios} className={`border-t border-border hover:bg-muted/40 ${i < 10 ? "bg-primary/5" : ""}`}>
+                  <tr key={s.usuario.id} className={`border-t border-border hover:bg-muted/40 ${i < 10 ? "bg-primary/5" : ""}`}>
                     <td className="py-2.5 px-4 font-mono text-xs">
                       {i < 3 ? <span className="text-base">{["🥇","🥈","🥉"][i]}</span> : i + 1}
                     </td>
@@ -206,7 +199,7 @@ function header(doc: jsPDF, title: string, subtitle: string) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Bibliotech v2.0 — Sistema Acadêmico", 14, 13);
+  doc.text("Bibliotech v2.1 — Sistema Acadêmico", 14, 13);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.text(subtitle, 14, 21);
