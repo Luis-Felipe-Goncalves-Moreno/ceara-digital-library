@@ -93,7 +93,7 @@ function PesquisaPage() {
               <label className="text-xs text-muted-foreground">Autor</label>
               <select value={autor} onChange={(e) => setAutor(e.target.value)} className="mt-1 w-full h-10 px-3 rounded-xl border border-border bg-card text-sm">
                 <option value="">Todos</option>
-                {autores.map((a) => <option key={a} value={a}>{a}</option>)}
+                {autores.map((a: any) => <option key={a} value={a}>{a}</option>)}
               </select>
             </div>
             <div>
