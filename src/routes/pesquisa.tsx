@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, BookOpen, Filter, X } from "lucide-react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Card, PageHeader, Badge, Button } from "@/components/ui-kit";
-import { LibraryAPI } from "@/lib/api/library.service";
-import type { Livro } from "@/lib/types";
+import { useLivros } from "@/lib/hooks/use-library";
 
 export const Route = createFileRoute("/pesquisa")({
   head: () => ({
@@ -18,17 +17,16 @@ export const Route = createFileRoute("/pesquisa")({
 });
 
 function PesquisaPage() {
-  const [livros, setLivros] = useState<Livro[]>([]);
+  const { data: livros = [] } = useLivros();
   const [q, setQ] = useState("");
   const [autor, setAutor] = useState("");
   const [isbn, setIsbn] = useState("");
   const [cat, setCat] = useState("");
   const [disp, setDisp] = useState<"qualquer" | "disponivel" | "indisponivel">("qualquer");
 
-  useEffect(() => { (undefined as any); }, []);
+  const categorias = useMemo(() => Array.from(new Set(livros.map((l: any) => l.categoria).filter(Boolean))), [livros]);
+  const autores = useMemo(() => Array.from(new Set(livros.flatMap((l: any) => l.autores?.map((a: any) => a.nome) ?? []))), [livros]);
 
-  const categorias = useMemo(() => Array.from(new Set(livros.map((l) => l.categoria))), [livros]);
-  const autores = useMemo(() => Array.from(new Set(livros.flatMap((l) => l.autores?.map((a) => a.nome) ?? []))), [livros]);
 
   const suggestions = q ? livros.filter((l) => l.nome.toLowerCase().includes(q.toLowerCase())).slice(0, 4) : [];
 
