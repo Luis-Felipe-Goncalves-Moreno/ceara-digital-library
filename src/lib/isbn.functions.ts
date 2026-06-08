@@ -36,8 +36,7 @@ async function tryOpenLibrary(isbn: string): Promise<IsbnLookupResult | null> {
       sinopse: book.notes ?? book.excerpts?.[0]?.text,
       capa_url:
         book.cover?.large ||
-        book.cover?.medium ||
-        `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`,
+        book.cover?.medium,
       fonte: "openlibrary",
     };
   } catch {
@@ -73,20 +72,55 @@ async function tryGoogleBooks(isbn: string): Promise<IsbnLookupResult | null> {
   }
 }
 
+async function downloadImageAsBase64(url: string): Promise<string | undefined> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return undefined;
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    // Ignora a imagem transparente 1x1 do OpenLibrary (geralmente tem ~43 bytes)
+    if (buffer.length < 1000) return undefined;
+
+    const contentType = res.headers.get("content-type") || "image/jpeg";
+    return `data:${contentType};base64,${buffer.toString("base64")}`;
+  } catch (error) {
+    console.error("Erro ao baixar imagem da capa:", error);
+    return undefined;
+  }
+}
+
 export const lookupIsbn = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ isbn: z.string().min(8).max(20) }).parse(d))
   .handler(async ({ data }): Promise<IsbnLookupResult> => {
     const isbn = data.isbn.replace(/[^0-9Xx]/g, "");
     const r1 = await tryOpenLibrary(isbn);
-    if (r1 && r1.autores.length > 0) return r1;
-    const r2 = await tryGoogleBooks(isbn);
-    if (r2) return { ...r2, capa_url: r2.capa_url ?? r1?.capa_url };
-    if (r1) return r1;
-    return {
-      isbn,
-      titulo: "",
-      autores: [],
-      capa_url: `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`,
-      fonte: "none",
-    };
+    
+    let result: IsbnLookupResult;
+    if (r1 && r1.autores.length > 0) {
+      result = r1;
+    } else {
+      const r2 = await tryGoogleBooks(isbn);
+      if (r2) {
+        result = { ...r2, capa_url: r2.capa_url ?? r1?.capa_url };
+      } else if (r1) {
+        result = r1;
+      } else {
+        result = {
+          isbn,
+          titulo: "",
+          autores: [],
+          fonte: "none",
+        };
+      }
+    }
+
+    if (result.capa_url) {
+      const base64 = await downloadImageAsBase64(result.capa_url);
+      if (base64) {
+        result.capa_url = base64;
+      }
+    }
+
+    return result;
   });
