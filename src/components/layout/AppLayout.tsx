@@ -61,22 +61,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth", replace: true });
-  }, [loading, user, navigate]);
+  // Auth desativado para testes — sem redirect e sem gate de carregamento.
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    navigate({ to: "/dashboard", replace: true });
   };
 
   const crumbs = pathname.split("/").filter(Boolean);
   const currentLabel = labelMap[crumbs[crumbs.length - 1]] ?? "Bibliotech";
-  const userName = profile?.nome ?? user?.email ?? "Usuário";
-  const userRole = isStaff(roles) ? (roles.includes("admin") ? "Administrador" : "Bibliotecário") : (roles.includes("professor") ? "Professor" : "Estudante");
-  const userInitials = initials(profile?.nome ?? user?.email);
+  const userName = profile?.nome ?? user?.email ?? "Convidado (teste)";
+  const userRole = isStaff(roles) ? (roles.includes("admin") ? "Administrador" : "Bibliotecário") : (roles.includes("professor") ? "Professor" : (user ? "Estudante" : "Modo teste"));
+  const userInitials = initials(profile?.nome ?? user?.email ?? "T T");
 
-  if (loading || !user) {
+  if (false) {
     return <div className="min-h-screen grid place-items-center text-sm text-muted-foreground">Carregando...</div>;
   }
 
