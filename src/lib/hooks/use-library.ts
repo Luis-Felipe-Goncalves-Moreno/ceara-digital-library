@@ -47,6 +47,8 @@ export function useSession(): SessionState {
 }
 
 export function isStaff(roles: string[]) {
+  // Modo teste: sem login, libera ações de staff (admin/bibliotecário).
+  if (!roles || roles.length === 0) return true;
   return roles.includes("admin") || roles.includes("bibliotecario");
 }
 
