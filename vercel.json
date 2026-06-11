@@ -1,27 +1,4 @@
 {
   "version": 2,
-  "framework": "tanstack-start",
-  "builds": [
-    {
-      "src": "dist/server/index.mjs",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/_vercel/insights(.*)",
-      "dest": "/_vercel/insights$1"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/client/assets/$1",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "dist/server/index.mjs"
-    }
-  ]
+  "framework": "tanstack-start"
 }
