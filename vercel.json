@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "framework": "edge-light",
+  "framework": "tanstack-start",
   "builds": [
     {
       "src": "dist/server/index.mjs",
