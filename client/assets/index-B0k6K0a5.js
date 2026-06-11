@@ -1,0 +1,1 @@
+import{G as s,r as a,F as r,j as n}from"./index-B0fFQmoT.js";function i(){const e=s();return a.useEffect(()=>{r.auth.getSession().then(({data:t})=>{e({to:t.session?"/dashboard":"/auth",replace:!0})})},[e]),n.jsx("div",{className:"min-h-screen grid place-items-center text-sm text-muted-foreground",children:"Carregando..."})}export{i as component};

@@ -1,0 +1,1 @@
+import{c as e}from"./library-CvwBvq_7.js";const o=[["path",{d:"M21 12a9 9 0 1 1-6.219-8.56",key:"13zald"}]],s=e("loader-circle",o);const c=[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"M12 5v14",key:"s699le"}]],t=e("plus",c);export{s as L,t as P};
