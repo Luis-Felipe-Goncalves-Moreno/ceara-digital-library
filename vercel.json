@@ -1,5 +1,4 @@
 {
   "version": 2,
-  "framework": "tanstack-start",
-  "cleanUrls": true
+  "framework": "tanstack-start"
 }
