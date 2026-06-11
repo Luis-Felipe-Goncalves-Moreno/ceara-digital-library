@@ -1,42 +1,256 @@
--- =========================================================
--- DUMP DE DADOS FICTÍCIOS PARA TESTES DO SISTEMA
--- Copie e cole no SQL Editor do seu Supabase
--- =========================================================
+-- =============================================================
+-- Bibliotech v3.0 — Dump de Dados Fictícios
+-- Gerado para popular o banco com volume realista
+-- =============================================================
 
--- 1. Inserindo Editoras
-INSERT INTO public.editoras (id, nome, cidade, pais, cnpj) VALUES 
-('11111111-1111-1111-1111-111111111111', 'Editora Ceará', 'Fortaleza', 'Brasil', '12.345.678/0001-90'),
-('22222222-2222-2222-2222-222222222222', 'Companhia das Letras', 'São Paulo', 'Brasil', '23.456.789/0001-12'),
-('33333333-3333-3333-3333-333333333333', 'Record', 'Rio de Janeiro', 'Brasil', '34.567.890/0001-23'),
-('44444444-4444-4444-4444-444444444444', 'Harper Collins', 'Nova York', 'EUA', '45.678.901/0001-34');
+-- ===================== EDITORAS =====================
+INSERT INTO editoras (id, nome, cidade, pais) VALUES
+  ('ed-001', 'Companhia das Letras', 'São Paulo', 'Brasil'),
+  ('ed-002', 'Editora Record', 'Rio de Janeiro', 'Brasil'),
+  ('ed-003', 'Editora Globo', 'São Paulo', 'Brasil'),
+  ('ed-004', 'Editora Rocco', 'Rio de Janeiro', 'Brasil'),
+  ('ed-005', 'Editora Intrínseca', 'Rio de Janeiro', 'Brasil'),
+  ('ed-006', 'Editora Sextante', 'Rio de Janeiro', 'Brasil'),
+  ('ed-007', 'Editora Objetiva', 'Rio de Janeiro', 'Brasil'),
+  ('ed-008', 'Editora Saraiva', 'São Paulo', 'Brasil'),
+  ('ed-009', 'Editora Moderna', 'São Paulo', 'Brasil'),
+  ('ed-010', 'Editora FTD', 'São Paulo', 'Brasil'),
+  ('ed-011', 'Editora Ática', 'São Paulo', 'Brasil'),
+  ('ed-012', 'HarperCollins Brasil', 'São Paulo', 'Brasil'),
+  ('ed-013', 'Editora Darkside', 'Rio de Janeiro', 'Brasil'),
+  ('ed-014', 'Editora Suma', 'São Paulo', 'Brasil'),
+  ('ed-015', 'Editora Arqueiro', 'Rio de Janeiro', 'Brasil')
+ON CONFLICT (id) DO NOTHING;
 
--- 2. Inserindo Autores
-INSERT INTO public.autores (id, nome, data_nascimento, nacionalidade, cpf) VALUES 
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Rachel de Queiroz', '1910-11-17', 'Brasileira', '111.222.333-44'),
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'José de Alencar', '1829-05-01', 'Brasileira', '222.333.444-55'),
-('cccccccc-cccc-cccc-cccc-cccccccccccc', 'Patativa do Assaré', '1909-03-05', 'Brasileira', '333.444.555-66'),
-('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Machado de Assis', '1839-06-21', 'Brasileira', '444.555.666-77'),
-('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', 'Clarice Lispector', '1920-12-10', 'Brasileira', '555.666.777-88'),
-('ffffffff-ffff-ffff-ffff-ffffffffffff', 'Yuval Noah Harari', '1976-02-24', 'Israelense', '666.777.888-99');
+-- ===================== AUTORES =====================
+INSERT INTO autores (id, nome, nacionalidade) VALUES
+  ('au-001', 'Machado de Assis', 'Brasileira'),
+  ('au-002', 'Clarice Lispector', 'Brasileira'),
+  ('au-003', 'Jorge Amado', 'Brasileira'),
+  ('au-004', 'Carlos Drummond de Andrade', 'Brasileira'),
+  ('au-005', 'Graciliano Ramos', 'Brasileira'),
+  ('au-006', 'Cecília Meireles', 'Brasileira'),
+  ('au-007', 'Guimarães Rosa', 'Brasileira'),
+  ('au-008', 'José de Alencar', 'Brasileira'),
+  ('au-009', 'Rachel de Queiroz', 'Brasileira'),
+  ('au-010', 'Érico Veríssimo', 'Brasileira'),
+  ('au-011', 'Lima Barreto', 'Brasileira'),
+  ('au-012', 'Manuel Bandeira', 'Brasileira'),
+  ('au-013', 'Vinícius de Moraes', 'Brasileira'),
+  ('au-014', 'Mário de Andrade', 'Brasileira'),
+  ('au-015', 'Fernando Pessoa', 'Portuguesa'),
+  ('au-016', 'José Saramago', 'Portuguesa'),
+  ('au-017', 'Gabriel García Márquez', 'Colombiana'),
+  ('au-018', 'Paulo Coelho', 'Brasileira'),
+  ('au-019', 'Monteiro Lobato', 'Brasileira'),
+  ('au-020', 'Lygia Fagundes Telles', 'Brasileira'),
+  ('au-021', 'Ariano Suassuna', 'Brasileira'),
+  ('au-022', 'Rubem Fonseca', 'Brasileira'),
+  ('au-023', 'Conceição Evaristo', 'Brasileira'),
+  ('au-024', 'Milton Hatoum', 'Brasileira'),
+  ('au-025', 'Djamila Ribeiro', 'Brasileira'),
+  ('au-026', 'Laurentino Gomes', 'Brasileira'),
+  ('au-027', 'Ailton Krenak', 'Brasileira'),
+  ('au-028', 'Itamar Vieira Junior', 'Brasileira'),
+  ('au-029', 'Conceição Evaristo', 'Brasileira'),
+  ('au-030', 'Ana Maria Machado', 'Brasileira')
+ON CONFLICT (id) DO NOTHING;
 
--- 3. Inserindo Livros
-INSERT INTO public.livros (id, isbn, nome, categoria, ano, quantidade_total, quantidade_disponivel, editora_id) VALUES 
-('10000000-0000-0000-0000-000000000001', '978-85-01-00001-1', 'O Quinze', 'Romance', 1930, 12, 12, '11111111-1111-1111-1111-111111111111'),
-('10000000-0000-0000-0000-000000000002', '978-85-01-00002-2', 'Iracema', 'Romance', 1865, 8, 8, '22222222-2222-2222-2222-222222222222'),
-('10000000-0000-0000-0000-000000000003', '978-85-01-00003-3', 'Cante Lá Que Eu Canto Cá', 'Poesia', 1978, 6, 6, '11111111-1111-1111-1111-111111111111'),
-('10000000-0000-0000-0000-000000000004', '978-85-01-00004-4', 'Dom Casmurro', 'Romance', 1899, 15, 15, '33333333-3333-3333-3333-333333333333'),
-('10000000-0000-0000-0000-000000000005', '978-85-01-00005-5', 'A Hora da Estrela', 'Ficção', 1977, 10, 10, '22222222-2222-2222-2222-222222222222'),
-('10000000-0000-0000-0000-000000000006', '978-85-01-00006-6', 'Sapiens', 'História', 2011, 20, 20, '44444444-4444-4444-4444-444444444444'),
-('10000000-0000-0000-0000-000000000007', '978-85-01-00007-7', 'Memórias Póstumas de Brás Cubas', 'Romance', 1881, 9, 9, '33333333-3333-3333-3333-333333333333'),
-('10000000-0000-0000-0000-000000000008', '978-85-01-00008-8', 'Homo Deus', 'História', 2016, 11, 11, '44444444-4444-4444-4444-444444444444');
+-- ===================== LIVROS =====================
+INSERT INTO livros (id, isbn, nome, subtitulo, categoria, ano, paginas, editora_id, quantidade_total, quantidade_disponivel, sinopse) VALUES
+  ('li-001', '9788535911992', 'Dom Casmurro', NULL, 'Romance', 1899, 256, 'ed-001', 5, 3, 'Um dos maiores clássicos da literatura brasileira, narra a história de Bentinho e Capitu.'),
+  ('li-002', '9788535914849', 'Memórias Póstumas de Brás Cubas', NULL, 'Romance', 1881, 208, 'ed-001', 4, 2, 'Romance narrado por um defunto autor que conta suas memórias.'),
+  ('li-003', '9788532530783', 'A Hora da Estrela', NULL, 'Romance', 1977, 88, 'ed-004', 6, 4, 'A história de Macabéa, uma nordestina ingênua vivendo no Rio de Janeiro.'),
+  ('li-004', '9788535910666', 'Capitães da Areia', NULL, 'Romance', 1937, 264, 'ed-001', 5, 3, 'A vida de meninos de rua em Salvador.'),
+  ('li-005', '9788501053145', 'Vidas Secas', NULL, 'Romance', 1938, 176, 'ed-002', 7, 5, 'A saga de Fabiano e sua família enfrentando a seca do sertão.'),
+  ('li-006', '9788520923481', 'Sentimento do Mundo', NULL, 'Poesia', 1940, 96, 'ed-001', 3, 2, 'Coletânea de poemas de Drummond.'),
+  ('li-007', '9788535920413', 'Grande Sertão: Veredas', NULL, 'Romance', 1956, 624, 'ed-001', 3, 1, 'A obra-prima de Guimarães Rosa sobre o sertão de Minas Gerais.'),
+  ('li-008', '9788508041tried', 'Iracema', NULL, 'Romance', 1865, 128, 'ed-011', 6, 5, 'Romance indianista que conta a lenda da fundação do Ceará.'),
+  ('li-009', '9788503009058', 'O Quinze', NULL, 'Romance', 1930, 176, 'ed-009', 5, 3, 'Romance sobre a seca de 1915 no Ceará.'),
+  ('li-010', '9788535909555', 'O Tempo e o Vento', 'O Continente', 'Romance', 1949, 720, 'ed-001', 2, 1, 'Saga épica do Rio Grande do Sul.'),
+  ('li-011', '9788525406897', 'Triste Fim de Policarpo Quaresma', NULL, 'Romance', 1911, 272, 'ed-011', 4, 3, 'A tragicomédia de um patriota ingênuo.'),
+  ('li-012', '9788520921326', 'Estrela da Vida Inteira', NULL, 'Poesia', 1966, 240, 'ed-009', 3, 2, 'Obra poética completa de Manuel Bandeira.'),
+  ('li-013', '9788535921236', 'Antologia Poética', NULL, 'Poesia', 1954, 288, 'ed-001', 4, 3, 'Seleção de poemas de Vinícius de Moraes.'),
+  ('li-014', '9788503011532', 'Macunaíma', NULL, 'Romance', 1928, 224, 'ed-009', 3, 2, 'O herói sem nenhum caráter.'),
+  ('li-015', '9788535922325', 'Mensagem', NULL, 'Poesia', 1934, 112, 'ed-001', 5, 4, 'Obra poética de Fernando Pessoa sobre a história de Portugal.'),
+  ('li-016', '9788535922929', 'Ensaio sobre a Cegueira', NULL, 'Romance', 1995, 312, 'ed-001', 4, 2, 'Uma epidemia de cegueira branca atinge uma cidade.'),
+  ('li-017', '9788501012172', 'Cem Anos de Solidão', NULL, 'Romance', 1967, 448, 'ed-002', 3, 1, 'A saga da família Buendía em Macondo.'),
+  ('li-018', '9788595086319', 'O Alquimista', NULL, 'Romance', 1988, 176, 'ed-012', 8, 6, 'A jornada de Santiago em busca de seu tesouro pessoal.'),
+  ('li-019', '9788525406903', 'O Sítio do Picapau Amarelo', NULL, 'Infantojuvenil', 1931, 288, 'ed-003', 6, 5, 'As aventuras de Narizinho, Pedrinho e Emília.'),
+  ('li-020', '9788535919738', 'As Meninas', NULL, 'Romance', 1973, 304, 'ed-001', 3, 2, 'Três jovens mulheres em um pensionato de São Paulo.'),
+  ('li-021', '9788520935798', 'Auto da Compadecida', NULL, 'Teatro', 1955, 176, 'ed-009', 5, 3, 'A comédia clássica nordestina de João Grilo e Chicó.'),
+  ('li-022', '9788535921830', 'Feliz Ano Velho', NULL, 'Romance', 1982, 224, 'ed-001', 4, 3, 'A história real de Marcelo Rubens Paiva após um acidente.'),
+  ('li-023', '9788535932560', 'Olhos d''Água', NULL, 'Contos', 2014, 116, 'ed-001', 5, 4, 'Contos que retratam a realidade de personagens marginalizados.'),
+  ('li-024', '9788535928280', 'Dois Irmãos', NULL, 'Romance', 2000, 264, 'ed-001', 3, 2, 'A rivalidade entre dois irmãos gêmeos em Manaus.'),
+  ('li-025', '9788535930511', 'Pequeno Manual Antirracista', NULL, 'Não-ficção', 2019, 136, 'ed-001', 6, 4, 'Reflexões essenciais sobre racismo no Brasil.'),
+  ('li-026', '9788535932881', '1808', NULL, 'Não-ficção', 2007, 416, 'ed-003', 4, 3, 'A história da fuga da família real para o Brasil.'),
+  ('li-027', '9788535935110', 'Ideias para Adiar o Fim do Mundo', NULL, 'Não-ficção', 2019, 80, 'ed-001', 5, 4, 'Reflexões de Ailton Krenak sobre a humanidade.'),
+  ('li-028', '9788580576511', 'Torto Arado', NULL, 'Romance', 2019, 264, 'ed-014', 5, 3, 'A história de duas irmãs no sertão baiano.'),
+  ('li-029', '9788535921403', 'Ponciá Vicêncio', NULL, 'Romance', 2003, 132, 'ed-001', 4, 3, 'A busca de identidade de uma mulher negra.'),
+  ('li-030', '9788535919745', 'Menina Bonita do Laço de Fita', NULL, 'Infantojuvenil', 1986, 24, 'ed-011', 8, 7, 'A história de uma menina negra e um coelho branco.'),
+  ('li-031', '9788501071705', 'O Cortiço', NULL, 'Romance', 1890, 224, 'ed-002', 5, 4, 'Retrato naturalista da vida em um cortiço carioca.'),
+  ('li-032', '9788535927061', 'Quarto de Despejo', NULL, 'Não-ficção', 1960, 200, 'ed-011', 4, 2, 'Diário de Carolina Maria de Jesus sobre a vida na favela.'),
+  ('li-033', '9788535932188', 'A Descoberta do Mundo', NULL, 'Crônicas', 1984, 496, 'ed-004', 3, 2, 'Crônicas publicadas por Clarice Lispector no Jornal do Brasil.'),
+  ('li-034', '9788501053329', 'Gabriela, Cravo e Canela', NULL, 'Romance', 1958, 368, 'ed-002', 4, 3, 'Romance de Jorge Amado ambientado em Ilhéus.'),
+  ('li-035', '9788535921182', 'O Encontro Marcado', NULL, 'Romance', 1956, 320, 'ed-001', 3, 2, 'Romance de Fernando Sabino sobre jovens mineiros.'),
+  ('li-036', '9788535920017', 'Lavoura Arcaica', NULL, 'Romance', 1975, 192, 'ed-001', 3, 2, 'Romance lírico de Raduan Nassar.'),
+  ('li-037', '9788520923290', 'A Moreninha', NULL, 'Romance', 1844, 176, 'ed-011', 5, 4, 'O primeiro romance brasileiro de sucesso comercial.'),
+  ('li-038', '9788535930375', 'Sejamos Todos Feministas', NULL, 'Não-ficção', 2014, 64, 'ed-001', 6, 5, 'Ensaio de Chimamanda Ngozi Adichie sobre feminismo.'),
+  ('li-039', '9788535922622', 'Sagarana', NULL, 'Contos', 1946, 336, 'ed-001', 3, 2, 'Coletânea de contos de Guimarães Rosa.'),
+  ('li-040', '9788503013185', 'Memórias de um Sargento de Milícias', NULL, 'Romance', 1854, 192, 'ed-011', 4, 3, 'Romance picaresco de Manuel Antônio de Almeida.'),
+  ('li-041', '9788535928129', 'Úrsula', NULL, 'Romance', 1859, 240, 'ed-001', 3, 2, 'Primeiro romance afro-brasileiro por Maria Firmina dos Reis.'),
+  ('li-042', '9788580576290', 'Americanah', NULL, 'Romance', 2013, 520, 'ed-001', 3, 2, 'Romance sobre imigração e identidade racial.'),
+  ('li-043', '9788535932577', 'O Avesso da Pele', NULL, 'Romance', 2020, 192, 'ed-001', 4, 3, 'Romance sobre racismo e violência policial.'),
+  ('li-044', '9788535930207', 'Becos da Memória', NULL, 'Romance', 2006, 192, 'ed-001', 4, 3, 'Romance sobre a remoção de uma favela.'),
+  ('li-045', '9788501111819', 'O Mundo de Sofia', NULL, 'Romance', 1991, 560, 'ed-001', 3, 2, 'Uma introdução à filosofia através de uma narrativa.'),
+  ('li-046', '9788535921830', 'Minha Vida de Menina', NULL, 'Não-ficção', 1942, 288, 'ed-001', 3, 2, 'Diário de Helena Morley sobre a infância em Diamantina.'),
+  ('li-047', '9788503012966', 'A Cidade e as Serras', NULL, 'Romance', 1901, 224, 'ed-009', 4, 3, 'Romance de Eça de Queirós sobre campo e cidade.'),
+  ('li-048', '9788535933024', 'Sobrevivendo no Inferno', NULL, 'Poesia', 1997, 144, 'ed-001', 4, 3, 'As letras dos Racionais MC''s como obra poética.'),
+  ('li-049', '9788525432520', 'O Diário de Anne Frank', NULL, 'Não-ficção', 1947, 352, 'ed-002', 5, 4, 'O famoso diário escrito durante a Segunda Guerra.'),
+  ('li-050', '9788535921199', 'Clara dos Anjos', NULL, 'Romance', 1948, 208, 'ed-001', 3, 2, 'Romance de Lima Barreto sobre preconceito racial.')
+ON CONFLICT (id) DO NOTHING;
 
--- 4. Relacionando Livros aos Autores
-INSERT INTO public.livros_autores (livro_id, autor_id) VALUES 
-('10000000-0000-0000-0000-000000000001', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'),
-('10000000-0000-0000-0000-000000000002', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'),
-('10000000-0000-0000-0000-000000000003', 'cccccccc-cccc-cccc-cccc-cccccccccccc'),
-('10000000-0000-0000-0000-000000000004', 'dddddddd-dddd-dddd-dddd-dddddddddddd'),
-('10000000-0000-0000-0000-000000000005', 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'),
-('10000000-0000-0000-0000-000000000006', 'ffffffff-ffff-ffff-ffff-ffffffffffff'),
-('10000000-0000-0000-0000-000000000007', 'dddddddd-dddd-dddd-dddd-dddddddddddd'),
-('10000000-0000-0000-0000-000000000008', 'ffffffff-ffff-ffff-ffff-ffffffffffff');
+-- ===================== LIVROS_AUTORES =====================
+INSERT INTO livros_autores (livro_id, autor_id) VALUES
+  ('li-001', 'au-001'), ('li-002', 'au-001'), ('li-003', 'au-002'),
+  ('li-004', 'au-003'), ('li-005', 'au-005'), ('li-006', 'au-004'),
+  ('li-007', 'au-007'), ('li-008', 'au-008'), ('li-009', 'au-009'),
+  ('li-010', 'au-010'), ('li-011', 'au-011'), ('li-012', 'au-012'),
+  ('li-013', 'au-013'), ('li-014', 'au-014'), ('li-015', 'au-015'),
+  ('li-016', 'au-016'), ('li-017', 'au-017'), ('li-018', 'au-018'),
+  ('li-019', 'au-019'), ('li-020', 'au-020'), ('li-021', 'au-021'),
+  ('li-022', 'au-022'), ('li-023', 'au-023'), ('li-024', 'au-024'),
+  ('li-025', 'au-025'), ('li-026', 'au-026'), ('li-027', 'au-027'),
+  ('li-028', 'au-028'), ('li-029', 'au-029'), ('li-030', 'au-030'),
+  ('li-031', 'au-001'), ('li-033', 'au-002'), ('li-034', 'au-003'),
+  ('li-039', 'au-007'), ('li-050', 'au-011')
+ON CONFLICT DO NOTHING;
+
+-- ===================== PROFILES (usuários fictícios) =====================
+-- NOTA: Esses perfis precisam existir como auth.users primeiro.
+-- Se estiver usando a Service Role, insira direto na tabela profiles.
+-- Caso contrário, crie os usuários pela interface ou via supabase.auth.admin.createUser().
+
+INSERT INTO profiles (id, nome, email, turma, matricula) VALUES
+  ('us-001', 'Ana Carolina Silva', 'ana.silva@aluno.ce.gov.br', '1 Informática', '2025001'),
+  ('us-002', 'Bruno Oliveira Santos', 'bruno.santos@aluno.ce.gov.br', '1 Informática', '2025002'),
+  ('us-003', 'Camila Ferreira Lima', 'camila.lima@aluno.ce.gov.br', '1 Informática', '2025003'),
+  ('us-004', 'Daniel Souza Costa', 'daniel.costa@aluno.ce.gov.br', '2 Informática', '2025004'),
+  ('us-005', 'Emily Rodrigues Almeida', 'emily.almeida@aluno.ce.gov.br', '2 Informática', '2025005'),
+  ('us-006', 'Felipe Martins Pereira', 'felipe.pereira@aluno.ce.gov.br', '2 Informática', '2025006'),
+  ('us-007', 'Gabriela Nascimento', 'gabriela.nasc@aluno.ce.gov.br', '3 Informática', '2025007'),
+  ('us-008', 'Henrique Araújo Lima', 'henrique.lima@aluno.ce.gov.br', '3 Informática', '2025008'),
+  ('us-009', 'Isabella Moreira', 'isabella.moreira@aluno.ce.gov.br', '3 Informática', '2025009'),
+  ('us-010', 'João Pedro Carvalho', 'joao.carvalho@aluno.ce.gov.br', '1 Administração', '2025010'),
+  ('us-011', 'Karen Monteiro Dias', 'karen.dias@aluno.ce.gov.br', '1 Administração', '2025011'),
+  ('us-012', 'Lucas Gabriel Ribeiro', 'lucas.ribeiro@aluno.ce.gov.br', '3 Administração', '2025012'),
+  ('us-013', 'Mariana Freitas', 'mariana.freitas@aluno.ce.gov.br', '3 Administração', '2025013'),
+  ('us-014', 'Nicolas Barbosa', 'nicolas.barbosa@aluno.ce.gov.br', '2 Finanças', '2025014'),
+  ('us-015', 'Olivia Gomes Torres', 'olivia.torres@aluno.ce.gov.br', '2 Finanças', '2025015'),
+  ('us-016', 'Pedro Henrique Vieira', 'pedro.vieira@aluno.ce.gov.br', '1 Meio-Ambiente', '2025016'),
+  ('us-017', 'Rafaela Cunha', 'rafaela.cunha@aluno.ce.gov.br', '1 Meio-Ambiente', '2025017'),
+  ('us-018', 'Samuel Teixeira', 'samuel.teixeira@aluno.ce.gov.br', '2 Meio-Ambiente', '2025018'),
+  ('us-019', 'Tatiana Lopes', 'tatiana.lopes@aluno.ce.gov.br', '2 Meio-Ambiente', '2025019'),
+  ('us-020', 'Ulisses Mendes', 'ulisses.mendes@aluno.ce.gov.br', '3 Meio-Ambiente', '2025020'),
+  ('us-021', 'Valentina Rocha', 'valentina.rocha@aluno.ce.gov.br', '3 Meio-Ambiente', '2025021'),
+  ('us-022', 'William Cardoso', 'william.cardoso@aluno.ce.gov.br', '1 Edificações', '2025022'),
+  ('us-023', 'Ximena Duarte', 'ximena.duarte@aluno.ce.gov.br', '1 Edificações', '2025023'),
+  ('us-024', 'Yasmin Correia', 'yasmin.correia@aluno.ce.gov.br', '3 Edificações', '2025024'),
+  ('us-025', 'Zaqueu Figueiredo', 'zaqueu.fig@aluno.ce.gov.br', '3 Edificações', '2025025'),
+  ('us-026', 'Alice Batista Pinto', 'alice.pinto@aluno.ce.gov.br', '2 Redes', '2025026'),
+  ('us-027', 'Bernardo Cavalcanti', 'bernardo.cavalcanti@aluno.ce.gov.br', '2 Redes', '2025027'),
+  ('us-028', 'Cíntia Azevedo', 'cintia.azevedo@aluno.ce.gov.br', '2 Redes', '2025028'),
+  ('us-029', 'Diego Nunes Prado', 'diego.prado@aluno.ce.gov.br', '1 Informática', '2025029'),
+  ('us-030', 'Elisa Fernandes', 'elisa.fernandes@aluno.ce.gov.br', '1 Informática', '2025030'),
+  ('us-031', 'Fábio Augusto Reis', 'fabio.reis@aluno.ce.gov.br', '2 Informática', '2025031'),
+  ('us-032', 'Giovana Medeiros', 'giovana.medeiros@aluno.ce.gov.br', '2 Informática', '2025032'),
+  ('us-033', 'Hugo Leonardo Braga', 'hugo.braga@aluno.ce.gov.br', '3 Informática', '2025033'),
+  ('us-034', 'Ingrid Sampaio', 'ingrid.sampaio@aluno.ce.gov.br', '3 Informática', '2025034'),
+  ('us-035', 'Juliana Matos', 'juliana.matos@aluno.ce.gov.br', '1 Administração', '2025035'),
+  ('us-036', 'Kauã Damasceno', 'kaua.damasceno@aluno.ce.gov.br', '1 Administração', '2025036'),
+  ('us-037', 'Letícia Andrade', 'leticia.andrade@aluno.ce.gov.br', '3 Administração', '2025037'),
+  ('us-038', 'Marcos Vinícius Sales', 'marcos.sales@aluno.ce.gov.br', '3 Administração', '2025038'),
+  ('us-039', 'Nathália Bezerra', 'nathalia.bezerra@aluno.ce.gov.br', '2 Finanças', '2025039'),
+  ('us-040', 'Otávio Parente', 'otavio.parente@aluno.ce.gov.br', '2 Finanças', '2025040'),
+  ('us-041', 'Priscila Dantas', 'priscila.dantas@aluno.ce.gov.br', '1 Meio-Ambiente', '2025041'),
+  ('us-042', 'Renan Uchôa', 'renan.uchoa@aluno.ce.gov.br', '2 Meio-Ambiente', '2025042'),
+  ('us-043', 'Sofia Helena Barros', 'sofia.barros@aluno.ce.gov.br', '3 Meio-Ambiente', '2025043'),
+  ('us-044', 'Thiago Pontes', 'thiago.pontes@aluno.ce.gov.br', '1 Edificações', '2025044'),
+  ('us-045', 'Ursula Pacheco', 'ursula.pacheco@aluno.ce.gov.br', '3 Edificações', '2025045'),
+  ('us-046', 'Vítor Magalhães', 'vitor.magalhaes@aluno.ce.gov.br', '2 Redes', '2025046'),
+  ('us-047', 'Wanda Cristina Nogueira', 'wanda.nogueira@aluno.ce.gov.br', '2 Redes', '2025047'),
+  ('us-048', 'Xavier Drummond', 'xavier.drummond@aluno.ce.gov.br', '1 Informática', '2025048'),
+  ('us-049', 'Yara Montenegro', 'yara.montenegro@aluno.ce.gov.br', '2 Informática', '2025049'),
+  ('us-050', 'Zilda Alencar', 'zilda.alencar@aluno.ce.gov.br', '3 Informática', '2025050'),
+  -- Funcionários / Bibliotecários (sem turma)
+  ('us-051', 'Maria das Graças Oliveira', 'maria.oliveira@eeep.ce.gov.br', NULL, NULL),
+  ('us-052', 'José Ricardo Albuquerque', 'jose.albuquerque@eeep.ce.gov.br', NULL, NULL),
+  ('us-053', 'Francisca Helena Costa', 'francisca.costa@eeep.ce.gov.br', NULL, NULL),
+  ('us-054', 'Carlos Eduardo Moura', 'carlos.moura@eeep.ce.gov.br', NULL, NULL),
+  ('us-055', 'Antônia Beatriz Soares', 'antonia.soares@eeep.ce.gov.br', NULL, NULL)
+ON CONFLICT (id) DO NOTHING;
+
+-- ===================== USER_ROLES =====================
+INSERT INTO user_roles (user_id, role) VALUES
+  ('us-051', 'admin'), ('us-052', 'bibliotecario'),
+  ('us-053', 'bibliotecario'), ('us-054', 'professor'),
+  ('us-055', 'admin')
+ON CONFLICT DO NOTHING;
+
+-- ===================== EMPRÉSTIMOS =====================
+INSERT INTO emprestimos (id, usuario_id, livro_id, data_emprestimo, data_estimada, data_devolucao, status) VALUES
+  -- Em dia
+  ('em-001', 'us-001', 'li-001', '2026-06-01', '2026-06-15', NULL, 'em_dia'),
+  ('em-002', 'us-002', 'li-003', '2026-06-02', '2026-06-16', NULL, 'em_dia'),
+  ('em-003', 'us-003', 'li-005', '2026-06-03', '2026-06-17', NULL, 'em_dia'),
+  ('em-004', 'us-004', 'li-007', '2026-06-04', '2026-06-18', NULL, 'em_dia'),
+  ('em-005', 'us-005', 'li-009', '2026-06-05', '2026-06-19', NULL, 'em_dia'),
+  ('em-006', 'us-006', 'li-011', '2026-06-03', '2026-06-17', NULL, 'em_dia'),
+  ('em-007', 'us-007', 'li-013', '2026-06-04', '2026-06-18', NULL, 'em_dia'),
+  ('em-008', 'us-008', 'li-015', '2026-06-05', '2026-06-19', NULL, 'em_dia'),
+  ('em-009', 'us-010', 'li-018', '2026-06-06', '2026-06-20', NULL, 'em_dia'),
+  ('em-010', 'us-011', 'li-021', '2026-06-06', '2026-06-20', NULL, 'em_dia'),
+  ('em-011', 'us-014', 'li-025', '2026-06-07', '2026-06-21', NULL, 'em_dia'),
+  ('em-012', 'us-016', 'li-027', '2026-06-07', '2026-06-21', NULL, 'em_dia'),
+  ('em-013', 'us-022', 'li-028', '2026-06-08', '2026-06-22', NULL, 'em_dia'),
+  ('em-014', 'us-026', 'li-030', '2026-06-08', '2026-06-22', NULL, 'em_dia'),
+  ('em-015', 'us-029', 'li-032', '2026-06-04', '2026-06-18', NULL, 'em_dia'),
+  -- Atrasados
+  ('em-016', 'us-009', 'li-002', '2026-05-10', '2026-05-24', NULL, 'atrasado'),
+  ('em-017', 'us-012', 'li-004', '2026-05-12', '2026-05-26', NULL, 'atrasado'),
+  ('em-018', 'us-015', 'li-006', '2026-05-15', '2026-05-29', NULL, 'atrasado'),
+  ('em-019', 'us-018', 'li-010', '2026-05-08', '2026-05-22', NULL, 'atrasado'),
+  ('em-020', 'us-020', 'li-016', '2026-05-20', '2026-06-03', NULL, 'atrasado'),
+  ('em-021', 'us-024', 'li-017', '2026-05-18', '2026-06-01', NULL, 'atrasado'),
+  ('em-022', 'us-031', 'li-024', '2026-05-22', '2026-06-05', NULL, 'atrasado'),
+  ('em-023', 'us-035', 'li-034', '2026-05-25', '2026-06-08', NULL, 'atrasado'),
+  -- Devolvidos
+  ('em-024', 'us-013', 'li-008', '2026-05-01', '2026-05-15', '2026-05-14', 'devolvido'),
+  ('em-025', 'us-017', 'li-012', '2026-05-02', '2026-05-16', '2026-05-15', 'devolvido'),
+  ('em-026', 'us-019', 'li-014', '2026-05-05', '2026-05-19', '2026-05-18', 'devolvido'),
+  ('em-027', 'us-021', 'li-019', '2026-05-08', '2026-05-22', '2026-05-20', 'devolvido'),
+  ('em-028', 'us-023', 'li-020', '2026-05-10', '2026-05-24', '2026-05-23', 'devolvido'),
+  ('em-029', 'us-025', 'li-022', '2026-05-12', '2026-05-26', '2026-05-25', 'devolvido'),
+  ('em-030', 'us-027', 'li-023', '2026-04-20', '2026-05-04', '2026-05-03', 'devolvido'),
+  ('em-031', 'us-028', 'li-026', '2026-04-22', '2026-05-06', '2026-05-05', 'devolvido'),
+  ('em-032', 'us-030', 'li-029', '2026-04-25', '2026-05-09', '2026-05-08', 'devolvido'),
+  ('em-033', 'us-032', 'li-031', '2026-04-28', '2026-05-12', '2026-05-10', 'devolvido'),
+  ('em-034', 'us-033', 'li-033', '2026-05-01', '2026-05-15', '2026-05-12', 'devolvido'),
+  ('em-035', 'us-034', 'li-035', '2026-05-03', '2026-05-17', '2026-05-16', 'devolvido'),
+  ('em-036', 'us-036', 'li-036', '2026-05-05', '2026-05-19', '2026-05-18', 'devolvido'),
+  ('em-037', 'us-037', 'li-037', '2026-04-15', '2026-04-29', '2026-04-28', 'devolvido'),
+  ('em-038', 'us-038', 'li-038', '2026-04-18', '2026-05-02', '2026-05-01', 'devolvido'),
+  ('em-039', 'us-039', 'li-039', '2026-04-20', '2026-05-04', '2026-05-02', 'devolvido'),
+  ('em-040', 'us-040', 'li-040', '2026-04-25', '2026-05-09', '2026-05-07', 'devolvido'),
+  ('em-041', 'us-041', 'li-041', '2026-05-10', '2026-05-24', '2026-05-22', 'devolvido'),
+  ('em-042', 'us-042', 'li-042', '2026-05-12', '2026-05-26', '2026-05-24', 'devolvido'),
+  ('em-043', 'us-043', 'li-043', '2026-05-15', '2026-05-29', '2026-05-28', 'devolvido'),
+  ('em-044', 'us-044', 'li-044', '2026-05-18', '2026-06-01', '2026-05-30', 'devolvido'),
+  ('em-045', 'us-045', 'li-045', '2026-05-20', '2026-06-03', '2026-06-02', 'devolvido'),
+  -- Renovados
+  ('em-046', 'us-046', 'li-046', '2026-05-10', '2026-06-07', NULL, 'renovado'),
+  ('em-047', 'us-047', 'li-047', '2026-05-15', '2026-06-12', NULL, 'renovado'),
+  ('em-048', 'us-048', 'li-048', '2026-05-18', '2026-06-15', NULL, 'renovado'),
+  ('em-049', 'us-049', 'li-049', '2026-05-20', '2026-06-17', NULL, 'renovado'),
+  ('em-050', 'us-050', 'li-050', '2026-05-22', '2026-06-19', NULL, 'renovado')
+ON CONFLICT (id) DO NOTHING;

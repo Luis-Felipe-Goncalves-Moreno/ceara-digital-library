@@ -5,6 +5,7 @@ import { CheckCircle2, Clock, AlertTriangle, RotateCw, Loader2, Plus, X } from "
 import { toast } from "sonner";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Card, PageHeader, Badge, Button } from "@/components/ui-kit";
+import { SearchableSelect } from "@/components/SearchableSelect";
 import { useEmprestimos, useDevolverEmprestimo, useCriarEmprestimo, useProfiles, useLivros } from "@/lib/hooks/use-library";
 
 export const Route = createFileRoute("/emprestimos")({
@@ -82,21 +83,23 @@ function EmprestimosPage() {
               <form onSubmit={handleCriar} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                 <div>
                   <label className="text-xs font-medium text-muted-foreground mb-1 block">Usuário</label>
-                  <select required value={usuarioId} onChange={e => setUsuarioId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-border bg-card text-sm">
-                    <option value="">Selecione um usuário...</option>
-                    {profiles.map((p: any) => <option key={p.id} value={p.id}>{p.nome} ({p.email})</option>)}
-                  </select>
+                  <SearchableSelect
+                    required
+                    value={usuarioId}
+                    onChange={setUsuarioId}
+                    placeholder="Selecione um usuário..."
+                    options={profiles.map((p: any) => ({ value: p.id, label: p.nome, sublabel: p.email }))}
+                  />
                 </div>
                 <div>
                   <label className="text-xs font-medium text-muted-foreground mb-1 block">Livro</label>
-                  <select required value={livroId} onChange={e => setLivroId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-border bg-card text-sm">
-                    <option value="">Selecione um livro...</option>
-                    {livros.map((l: any) => (
-                      <option key={l.id} value={l.id} disabled={l.quantidade_disponivel <= 0}>
-                        {l.nome} {l.quantidade_disponivel <= 0 ? "(Indisponível)" : `(${l.quantidade_disponivel} disp.)`}
-                      </option>
-                    ))}
-                  </select>
+                  <SearchableSelect
+                    required
+                    value={livroId}
+                    onChange={setLivroId}
+                    placeholder="Selecione um livro..."
+                    options={livros.map((l: any) => ({ value: l.id, label: l.nome, sublabel: `${l.quantidade_disponivel} disp.`, disabled: l.quantidade_disponivel <= 0 }))}
+                  />
                 </div>
                 <div>
                   <label className="text-xs font-medium text-muted-foreground mb-1 block">Dias</label>
