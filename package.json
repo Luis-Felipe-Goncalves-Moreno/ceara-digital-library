@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vinxi build --preset vercel",
-    "start": "vinxi start"
+    "start": "vinxi start",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
