@@ -7,8 +7,5 @@ export default defineConfig({
     server: { entry: "server" },
   },
   base: '/ceara-digital-library/',
-<<<<<<< HEAD
-  plugins: [] // <-- COLOQUE ESSA LINHA AQUI! Ela vai acalmar o robô da Cloudflare
-=======
->>>>>>> 1172229 (commit)
+  plugins: []
 });
